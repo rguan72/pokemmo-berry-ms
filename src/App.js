@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react"
+import Box from "@material-ui/core/Box"
+import Card from "@material-ui/core/Card"
+import Button from "@material-ui/core/Button"
+import Typography from "@material-ui/core/Typography"
+import DateFnsUtils from "@date-io/date-fns"
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers'
+import BerryHarvest from "./components/BerryHarvest"
+
 
 function App() {
+  const [berryBushels, setBerryBushels] = useState([{title: "Rawst", number: 10, plant_date: new Date()}]);
+  const harvests = berryBushels.map((bushel, idx) => <BerryHarvest {...bushel} key={idx}  />)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box display="flex" flexDirection="row" flexWrap="wrap">
+        <Box mt="2vh" ml="2vh">
+            {harvests}
+        </Box>
+    </Box>
   );
 }
 
