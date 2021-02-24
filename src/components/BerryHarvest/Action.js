@@ -21,7 +21,7 @@ export default function Action({ selectedDate, setSelectedDate, handleDateChange
                 <KeyboardDatePicker
                     margin="normal"
                     id="date-picker-dialog"
-                    label="Date picker dialog"
+                    label="Date"
                     format="MM/dd/yyyy"
                     value={selectedDate}
                     onChange={handleDateChange}
@@ -33,7 +33,7 @@ export default function Action({ selectedDate, setSelectedDate, handleDateChange
                 <KeyboardTimePicker
                     margin="normal"
                     id="time-picker"
-                    label="Time picker"
+                    label="Time"
                     value={selectedDate}
                     onChange={handleDateChange}
                     KeyboardButtonProps={{
