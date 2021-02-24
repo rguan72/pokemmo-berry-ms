@@ -9,45 +9,45 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers'
 
-export default function Action({ selectedDate, setSelectedDate, handleDateChange, name, timeRange }) {
+export default function Action({ selectedDate, setSelectedDate, handleDateChange, name, timeRange, hidden }) {
+    const timeset = (
+        <Box display="flex" flexDirection="row">
+            <KeyboardDatePicker
+                margin="normal"
+                label="Date"
+                format="MM/dd/yyyy"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                'aria-label': 'change date',
+                }}
+            />
+            <KeyboardTimePicker
+                margin="normal"
+                label="Time"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                'aria-label': 'change time',
+                }}
+            />
+            <Button
+                onClick={() => {
+                setSelectedDate(new Date())
+                }}
+            >
+                Now
+            </Button>
+        </Box>
+    )
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Box display="flex" flexDirection="row">
-                <Box display="flex" flexDirection="column">
-                    <Typography> {name} </Typography>
+            <Box display="flex" flexDirection="column">
+                <Box mt="3vh" display="flex" flexDirection="column">
+                    <Typography variant="h6"> {name} </Typography>
                     {timeRange && (<Typography> {timeRange}</Typography>)}
                 </Box>
-                <Box py="2vw" />
-                <KeyboardDatePicker
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="Date"
-                    format="MM/dd/yyyy"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                    }}
-                />
-                <Box py="2vw"/>
-                <KeyboardTimePicker
-                    margin="normal"
-                    id="time-picker"
-                    label="Time"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                    'aria-label': 'change time',
-                    }}
-                />
-                <Box py="2vw" />
-                <Button
-                    onClick={() => {
-                    setSelectedDate(new Date())
-                    }}
-                >
-                    Now
-                </Button>
+                {!hidden && timeset}
             </Box>
         </MuiPickersUtilsProvider>
     )
