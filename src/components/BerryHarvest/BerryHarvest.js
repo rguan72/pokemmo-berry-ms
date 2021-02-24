@@ -4,11 +4,11 @@ import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import Action from "./Action"
-import { Data, Time, BerryMath } from "../../utils"
+import { Data, BerryMath } from "../../utils"
 
-export default function BerryHarvest({ id, title, number, plant_date, waterone_date, harvest_date }) {
+export default function BerryHarvest({ id, title, number, plant_date, waterone_date, watertwo_date, harvest_date }) {
     const bm = new BerryMath(title)
-    const ranges = bm.getRanges(plant_date)
+    const ranges = bm.getRanges(plant_date, waterone_date)
     const titleCapitalized = title.charAt(0).toUpperCase() + title.slice(1)
     function setSelectedDatePlant(date) {
         const data = new Data("rich")
@@ -16,8 +16,11 @@ export default function BerryHarvest({ id, title, number, plant_date, waterone_d
     }
     function setSelectedDateWaterOne(date) {
         const data = new Data("rich")
-        console.log({ date: date })
         data.updateBushel(id, { waterone_date: date })
+    }
+    function setSelectedDateWaterTwo(date) {
+        const data = new Data("rich")
+        data.updateBushel(id, { watertwo_date: date })
     }
     function setSelectedDateHarvest(date) {
         const data = new Data("rich")
@@ -42,6 +45,14 @@ export default function BerryHarvest({ id, title, number, plant_date, waterone_d
                         setSelectedDate={setSelectedDateWaterOne} 
                         handleDateChange={setSelectedDateWaterOne} 
                     />
+                    {bm.type === 20 && 
+                    <Action
+                        name="Water 2:"
+                        timeRange={`${ranges && ranges.waterTwoTimeStart} - ${ranges && ranges.waterTwoTimeEnd}`}
+                        selectedDate={watertwo_date} 
+                        setSelectedDate={setSelectedDateWaterTwo} 
+                        handleDateChange={setSelectedDateWaterTwo} 
+                    />}
                     <Action
                         name="Harvest:"
                         timeRange={`${ranges && ranges.harvestTimeStart} - ${ranges && ranges.harvestTimeEnd}`}

@@ -44,6 +44,7 @@ export default function BerryHarvestForm({ setForm }) {
                         <MenuItem value={"rawst"}>Rawst</MenuItem>
                         <MenuItem value={"cheri"}>Cheri</MenuItem>
                         <MenuItem value={"pecha"}>Pecha</MenuItem>
+                        <MenuItem value={"leppa"}>Leppa</MenuItem>
                     </Select>
                 </FormControl>
                 <Box m="2vw">
@@ -62,6 +63,12 @@ export default function BerryHarvestForm({ setForm }) {
                         timeRange={`${ranges && ranges.waterOneTimeStart} - ${ranges && ranges.waterOneTimeEnd}`}
                         hidden
                     />
+                    {bm.type === 20 && 
+                    <Action 
+                        name="Water 2:"
+                        timeRange={`${ranges && ranges.waterTwoTimeStart} - ${ranges && ranges.waterTwoTimeEnd}`}
+                        hidden
+                    />}
                     <Action 
                         name="Harvest:"
                         timeRange={`${ranges && ranges.harvestTimeStart} - ${ranges && ranges.harvestTimeEnd}`}

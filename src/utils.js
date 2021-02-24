@@ -6,13 +6,14 @@ export class Data {
         this.uid = uid
     }
     watchBushels(setBushels) {
-        return this.db.collection("bushels").where("uid", "==", this.uid).where("archived", "==", false).orderBy("plant_date")
+        return this.db.collection("bushels").where("uid", "==", this.uid).where("archived", "==", false).orderBy("plant_date", "desc")
                     .onSnapshot((querySnapshot) => {
                         const bushels = []
                         querySnapshot.forEach((doc) => {
                             const bushel = doc.data()
                             bushel.plant_date = bushel.plant_date && bushel.plant_date.toDate()
                             bushel.waterone_date = bushel.waterone_date && bushel.waterone_date.toDate()
+                            bushel.watertwo_date = bushel.watertwo_date && bushel.watertwo_date.toDate()
                             bushel.harvest_date = bushel.harvest_date && bushel.harvest_date.toDate()
                             bushel.id = doc.id
                             bushels.push(bushel)
@@ -29,6 +30,7 @@ export class Data {
             uid: uid,
             plant_date: plantDate,
             waterone_date: null,
+            watertwo_date: null,
             harvest_date: null,
             number: number,
             archived: false,
@@ -65,19 +67,33 @@ export class BerryMath {
         }
         this.t = new Time()
     }
-    getRanges(plantDate) {
+    getRanges(plantDate, waterOneGiven) {
         if (!plantDate) {
             return null
         }
         const locale = "en-US"
         const options = {month: 'numeric', day: 'numeric', hour: "2-digit", minute: "2-digit"}
+        let waterOneTimeStart, waterOneTimeEnd, waterTwoTimeStart, waterTwoTimeEnd, harvestTimeStart, harvestTimeEnd
         switch (this.type) {
             case 16:
-                const waterOneTimeStart = this.t.addHours(plantDate, 4).toLocaleString(locale, options)
-                const waterOneTimeEnd = this.t.addHours(plantDate, 8).toLocaleString(locale, options)
-                const harvestTimeStart = this.t.addHours(plantDate, 16).toLocaleString(locale, options)
-                const harvestTimeEnd = this.t.addHours(plantDate, 24).toLocaleString(locale, options)
+                waterOneTimeStart = this.t.addHours(plantDate, 4).toLocaleString(locale, options)
+                waterOneTimeEnd = this.t.addHours(plantDate, 8).toLocaleString(locale, options)
+                harvestTimeStart = this.t.addHours(plantDate, 16).toLocaleString(locale, options)
+                harvestTimeEnd = this.t.addHours(plantDate, 24).toLocaleString(locale, options)
                 return { waterOneTimeStart, waterOneTimeEnd, harvestTimeStart, harvestTimeEnd }
+            case 20:
+                waterOneTimeStart = this.t.addHours(plantDate, 6).toLocaleString(locale, options)
+                waterOneTimeEnd = this.t.addHours(plantDate, 8).toLocaleString(locale, options)
+                if (waterOneGiven) {
+                    waterTwoTimeStart = this.t.addHours(waterOneGiven, 2).toLocaleString(locale, options)
+                    waterTwoTimeEnd = this.t.addHours(waterOneGiven, 12).toLocaleString(locale, options)
+                } else {
+                    waterTwoTimeStart = this.t.addHours(plantDate, 14).toLocaleString(locale, options)
+                    waterTwoTimeEnd = this.t.addHours(plantDate, 18).toLocaleString(locale, options)
+                }
+                harvestTimeStart = this.t.addHours(plantDate, 20).toLocaleString(locale, options)
+                harvestTimeEnd = this.t.addHours(plantDate, 28).toLocaleString(locale, options)
+                return { waterOneTimeStart, waterOneTimeEnd, waterTwoTimeStart, waterTwoTimeEnd, harvestTimeStart, harvestTimeEnd }
             default:
                 return null
         }
