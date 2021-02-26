@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button"
 import Action from "./Action"
 import { Data, BerryMath } from "../../utils"
 
-export default function BerryHarvest({ id, title, number, plant_date, waterone_date, watertwo_date, harvest_date }) {
+export default function BerryHarvest({ id, title, number, plant_date, waterone_date, watertwo_date, harvest_date, readOnly }) {
     const bm = new BerryMath(title)
     const ranges = bm.getRanges(plant_date, waterone_date)
     const titleCapitalized = title.charAt(0).toUpperCase() + title.slice(1)
@@ -36,14 +36,16 @@ export default function BerryHarvest({ id, title, number, plant_date, waterone_d
                         timeRange=""
                         selectedDate={plant_date} 
                         setSelectedDate={setSelectedDatePlant} 
-                        handleDateChange={setSelectedDatePlant} 
+                        handleDateChange={setSelectedDatePlant}
+                        readOnly={readOnly}
                     />
                     <Action
                         name="Water 1:"
                         timeRange={`${ranges && ranges.waterOneTimeStart} - ${ranges && ranges.waterOneTimeEnd}`}
                         selectedDate={waterone_date} 
                         setSelectedDate={setSelectedDateWaterOne} 
-                        handleDateChange={setSelectedDateWaterOne} 
+                        handleDateChange={setSelectedDateWaterOne}
+                        readOnly={readOnly}
                     />
                     {bm.type === 20 && 
                     <Action
@@ -52,6 +54,7 @@ export default function BerryHarvest({ id, title, number, plant_date, waterone_d
                         selectedDate={watertwo_date} 
                         setSelectedDate={setSelectedDateWaterTwo} 
                         handleDateChange={setSelectedDateWaterTwo} 
+                        readOnly={readOnly}
                     />}
                     <Action
                         name="Harvest:"
@@ -59,16 +62,17 @@ export default function BerryHarvest({ id, title, number, plant_date, waterone_d
                         selectedDate={harvest_date} 
                         setSelectedDate={setSelectedDateHarvest} 
                         handleDateChange={setSelectedDateHarvest} 
+                        readOnly={readOnly}
                     />
                 </Box>
-                <Button
+                {!readOnly && <Button
                     onClick={() => {
                         const data = new Data("rich")
                         data.updateBushel(id, { archived: true })
                     }}
                 >
                     Archive
-                </Button>
+                </Button>}
             </Box>
         </Card>
     )

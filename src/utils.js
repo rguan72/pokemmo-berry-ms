@@ -5,20 +5,29 @@ export class Data {
         this.db = firebase.firestore()
         this.uid = uid
     }
+    hydrateData(querySnapshot) {
+        const bushels = []
+        querySnapshot.forEach((doc) => {
+            const bushel = doc.data()
+            bushel.plant_date = bushel.plant_date && bushel.plant_date.toDate()
+            bushel.waterone_date = bushel.waterone_date && bushel.waterone_date.toDate()
+            bushel.watertwo_date = bushel.watertwo_date && bushel.watertwo_date.toDate()
+            bushel.harvest_date = bushel.harvest_date && bushel.harvest_date.toDate()
+            bushel.id = doc.id
+            bushels.push(bushel)
+        })
+        return bushels
+    }
     watchBushels(setBushels) {
         return this.db.collection("bushels").where("uid", "==", this.uid).where("archived", "==", false).orderBy("plant_date", "desc")
                     .onSnapshot((querySnapshot) => {
-                        const bushels = []
-                        querySnapshot.forEach((doc) => {
-                            const bushel = doc.data()
-                            bushel.plant_date = bushel.plant_date && bushel.plant_date.toDate()
-                            bushel.waterone_date = bushel.waterone_date && bushel.waterone_date.toDate()
-                            bushel.watertwo_date = bushel.watertwo_date && bushel.watertwo_date.toDate()
-                            bushel.harvest_date = bushel.harvest_date && bushel.harvest_date.toDate()
-                            bushel.id = doc.id
-                            bushels.push(bushel)
-                        })
-                        setBushels(bushels)
+                        setBushels(this.hydrateData(querySnapshot))
+                    })
+    }
+    watchBushelsArchive(setBushels) {
+        return this.db.collection("bushels").where("uid", "==", this.uid).where("archived", "==", true).orderBy("plant_date", "desc")
+                    .onSnapshot((querySnapshot) => {
+                        setBushels(this.hydrateData(querySnapshot))
                     })
     }
     updateBushel(id, fieldUpdate) {

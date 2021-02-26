@@ -47,7 +47,7 @@ export default function BerryHarvestForm({ setForm }) {
                     </Select>
                 </FormControl>
                 <Box m="2vw">
-                    <TextField required id="standard-required" label="Number" value={number} onChange={handleNumChange} />
+                    <TextField required id="standard-required" label="Number" type="number" value={number} onChange={handleNumChange} />
                 </Box>
                 <Box display="flex" flexDirection="column">
                     <Action 

@@ -9,7 +9,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers'
 
-export default function Action({ selectedDate, setSelectedDate, handleDateChange, name, timeRange, hidden }) {
+export default function Action({ selectedDate, setSelectedDate, handleDateChange, name, timeRange, hidden, readOnly }) {
     const timeset = (
         <Box display="flex" flexDirection="row">
             <KeyboardDatePicker
@@ -21,6 +21,7 @@ export default function Action({ selectedDate, setSelectedDate, handleDateChange
                 KeyboardButtonProps={{
                 'aria-label': 'change date',
                 }}
+                disabled={readOnly}
             />
             <KeyboardTimePicker
                 margin="normal"
@@ -30,14 +31,16 @@ export default function Action({ selectedDate, setSelectedDate, handleDateChange
                 KeyboardButtonProps={{
                 'aria-label': 'change time',
                 }}
+                disabled={readOnly}
             />
+            {!readOnly && 
             <Button
                 onClick={() => {
                 setSelectedDate(new Date())
                 }}
             >
                 Now
-            </Button>
+            </Button>}
         </Box>
     )
     return (
