@@ -9,13 +9,14 @@ import BerryHarvestForm from "../components/BerryHarvestForm";
 import { Data } from "../utils"
 
 
-function Home() {
+function Home({ route }) {
   const [bushels, setBushels] = useState([])
   const [form, setForm] = useState(false)
   useEffect(() => {
+    console.log(route.user)
     const data = new Data("rich")
     return data.watchBushels(setBushels)
-  }, [])
+  }, [route.user])
 
   const harvests = bushels.map((bushel, idx) => <BerryHarvest {...bushel} key={idx} readOnly={false} />)
   return (

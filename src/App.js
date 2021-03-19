@@ -6,16 +6,21 @@ import {
 } from "react-router-dom"
 import Home from "./pages/Home"
 import Archive from "./pages/Archive"
+import ProtectedRoute from "./pages/ProtectedRoute"
+import Login from "./pages/Login"
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
+        <ProtectedRoute exact path="/" redirectTo="/login">
           <Home />
-        </Route>
-        <Route path="/archive">
+        </ProtectedRoute>
+        <ProtectedRoute path="/archive" redirectTo="/login">
           <Archive />
+        </ProtectedRoute>
+        <Route>
+          <Login path="/login" />
         </Route>
       </Switch>
     </Router>
