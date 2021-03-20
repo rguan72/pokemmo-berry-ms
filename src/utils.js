@@ -33,10 +33,10 @@ export class Data {
     updateBushel(id, fieldUpdate) {
         this.db.collection("bushels").doc(id).update(fieldUpdate)
     }
-    createBushel(uid, plantDate, berry, number) {
+    createBushel(plantDate, berry, number) {
         this.db.collection("bushels").doc().set({
             title: berry,
-            uid: uid,
+            uid: this.uid,
             plant_date: plantDate,
             waterone_date: null,
             watertwo_date: null,

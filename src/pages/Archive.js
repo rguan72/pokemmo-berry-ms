@@ -4,13 +4,15 @@ import Box from "@material-ui/core/Box"
 import BerryHarvest from "../components/BerryHarvest"
 import { Data } from "../utils"
 
-export default function Archive() {
+export default function Archive({ user, test }) {
     const [bushels, setBushels] = useState([])
     useEffect(() => {
-        const data = new Data("rich")
+        // console.log(uid)
+        // console.log(test)
+        const data = new Data(user.uid)
         return data.watchBushelsArchive(setBushels)
-    }, [])
-    const harvests = bushels.map((bushel, idx) => <BerryHarvest {...bushel} key={idx} readOnly />)
+    }, [user])
+    const harvests = bushels.map((bushel, idx) => <BerryHarvest {...bushel} uid={user.uid} key={idx} readOnly />)
     return (
         <Box>
             <Box mt="1vh" ml="2vh">

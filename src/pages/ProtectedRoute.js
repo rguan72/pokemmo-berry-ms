@@ -1,15 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../FirebaseAuthContext';
 import { Route, Redirect } from 'react-router-dom';
+import firebase from "firebase/app"
+import "firebase/auth"
 
 export default function ProtectedRoute(props) {
-    const authValue = useContext(AuthContext)
-    if (authValue.userDataPresent) {
-        if (authValue.user === null) {
-            return (<Redirect to={props.redirectTo}></Redirect>)
-        }
+    if (props.user) {
         return (
-            <Route exact path={props.path} component={props.children} user={authValue.user} />
+            <Route exact path={props.path} user={props.user}>{props.children}</Route>
         )
     }
     return <Redirect to={props.redirectTo}></Redirect>

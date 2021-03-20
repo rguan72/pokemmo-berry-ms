@@ -10,8 +10,8 @@ import Select from '@material-ui/core/Select'
 import Action from "../BerryHarvest/Action"
 import { Data, BerryMath } from "../../utils"
 
-export default function BerryHarvestForm({ setForm }) {
-    const [berry, setBerry] = useState(null)
+export default function BerryHarvestForm({ uid, setForm }) {
+    const [berry, setBerry] = useState("")
     const [plantDate, setPlantDate] = useState(null)
     const [number, setNumber] = useState(1)
     const bm = new BerryMath(berry)
@@ -26,8 +26,8 @@ export default function BerryHarvestForm({ setForm }) {
         setNumber(event.target.value)
     }
     function saveBerry() {
-        const data = new Data("rich")
-        data.createBushel("rich", plantDate, berry, number)
+        const data = new Data(uid)
+        data.createBushel(plantDate, berry, number)
     }
     return (
         <Card>

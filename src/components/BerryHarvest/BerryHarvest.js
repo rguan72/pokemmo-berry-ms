@@ -6,24 +6,24 @@ import Button from "@material-ui/core/Button"
 import Action from "./Action"
 import { Data, BerryMath } from "../../utils"
 
-export default function BerryHarvest({ id, title, number, plant_date, waterone_date, watertwo_date, harvest_date, readOnly }) {
+export default function BerryHarvest({ uid, id, title, number, plant_date, waterone_date, watertwo_date, harvest_date, readOnly }) {
     const bm = new BerryMath(title)
     const ranges = bm.getRanges(plant_date, waterone_date)
     const titleCapitalized = title.charAt(0).toUpperCase() + title.slice(1)
     function setSelectedDatePlant(date) {
-        const data = new Data("rich")
+        const data = new Data(uid)
         data.updateBushel(id, { plant_date: date })
     }
     function setSelectedDateWaterOne(date) {
-        const data = new Data("rich")
+        const data = new Data(uid)
         data.updateBushel(id, { waterone_date: date })
     }
     function setSelectedDateWaterTwo(date) {
-        const data = new Data("rich")
+        const data = new Data(uid)
         data.updateBushel(id, { watertwo_date: date })
     }
     function setSelectedDateHarvest(date) {
-        const data = new Data("rich")
+        const data = new Data(uid)
         data.updateBushel(id, { harvest_date: date })
     }
     return (
@@ -67,7 +67,7 @@ export default function BerryHarvest({ id, title, number, plant_date, waterone_d
                 </Box>
                 {!readOnly && <Button
                     onClick={() => {
-                        const data = new Data("rich")
+                        const data = new Data(uid)
                         data.updateBushel(id, { archived: true })
                     }}
                 >
