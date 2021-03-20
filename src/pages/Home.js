@@ -25,6 +25,11 @@ function Home({ route, user }) {
     <Box>
         <Box mt="1vh" ml="2vh">
             <Link to="/archive">Archive</Link>
+            <Button
+              onClick={() => firebase.auth().signOut()}
+            >
+              Sign Out
+            </Button>
         </Box>
         <Box display="flex" flexDirection="row" flexWrap="wrap">
             <Box mt="2vh" ml="2vh"> 
@@ -39,11 +44,6 @@ function Home({ route, user }) {
             </CardActionArea>
             </Card>
         </Box>
-        <Button
-          onClick={() => firebase.auth().signOut()}
-        >
-          Sign Out
-        </Button>
     </Box>
   );
 }
