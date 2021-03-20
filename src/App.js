@@ -3,11 +3,9 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
 } from "react-router-dom"
 import Home from "./pages/Home"
 import Archive from "./pages/Archive"
-import ProtectedRoute from "./pages/ProtectedRoute"
 import Login from "./pages/Login"
 import NotFound from "./pages/NotFound"
 import firebase from "firebase/app"
