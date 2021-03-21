@@ -7,8 +7,6 @@ import { Data } from "../utils"
 export default function Archive({ user, test }) {
     const [bushels, setBushels] = useState([])
     useEffect(() => {
-        // console.log(uid)
-        // console.log(test)
         const data = new Data(user.uid)
         return data.watchBushelsArchive(setBushels)
     }, [user])

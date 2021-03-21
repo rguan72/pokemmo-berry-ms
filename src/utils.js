@@ -91,18 +91,11 @@ export class BerryMath {
                 harvestTimeEnd = this.t.addHours(plantDate, 24).toLocaleString(locale, options)
                 return { waterOneTimeStart, waterOneTimeEnd, harvestTimeStart, harvestTimeEnd }
             case 20:
-                waterOneTimeStart = this.t.addHours(plantDate, 6).toLocaleString(locale, options)
-                waterOneTimeEnd = this.t.addHours(plantDate, 8).toLocaleString(locale, options)
-                if (waterOneGiven) {
-                    waterTwoTimeStart = this.t.addHours(waterOneGiven, 2).toLocaleString(locale, options)
-                    waterTwoTimeEnd = this.t.addHours(waterOneGiven, 12).toLocaleString(locale, options)
-                } else {
-                    waterTwoTimeStart = this.t.addHours(plantDate, 14).toLocaleString(locale, options)
-                    waterTwoTimeEnd = this.t.addHours(plantDate, 18).toLocaleString(locale, options)
-                }
+                waterOneTimeStart = this.t.addHours(plantDate, 8).toLocaleString(locale, options)
+                waterOneTimeEnd = this.t.addHours(plantDate, 10).toLocaleString(locale, options)
                 harvestTimeStart = this.t.addHours(plantDate, 20).toLocaleString(locale, options)
                 harvestTimeEnd = this.t.addHours(plantDate, 28).toLocaleString(locale, options)
-                return { waterOneTimeStart, waterOneTimeEnd, waterTwoTimeStart, waterTwoTimeEnd, harvestTimeStart, harvestTimeEnd }
+                return { waterOneTimeStart, waterOneTimeEnd, harvestTimeStart, harvestTimeEnd }
             default:
                 return null
         }

@@ -47,15 +47,6 @@ export default function BerryHarvest({ uid, id, title, number, plant_date, water
                         handleDateChange={setSelectedDateWaterOne}
                         readOnly={readOnly}
                     />
-                    {bm.type === 20 && 
-                    <Action
-                        name="Water 2:"
-                        timeRange={`${ranges && ranges.waterTwoTimeStart} - ${ranges && ranges.waterTwoTimeEnd}`}
-                        selectedDate={watertwo_date} 
-                        setSelectedDate={setSelectedDateWaterTwo} 
-                        handleDateChange={setSelectedDateWaterTwo} 
-                        readOnly={readOnly}
-                    />}
                     <Action
                         name="Harvest:"
                         timeRange={`${ranges && ranges.harvestTimeStart} - ${ranges && ranges.harvestTimeEnd}`}

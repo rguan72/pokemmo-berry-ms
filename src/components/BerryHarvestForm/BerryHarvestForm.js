@@ -62,12 +62,6 @@ export default function BerryHarvestForm({ uid, setForm }) {
                         timeRange={`${ranges && ranges.waterOneTimeStart} - ${ranges && ranges.waterOneTimeEnd}`}
                         hidden
                     />
-                    {bm.type === 20 && 
-                    <Action 
-                        name="Water 2:"
-                        timeRange={`${ranges && ranges.waterTwoTimeStart} - ${ranges && ranges.waterTwoTimeEnd}`}
-                        hidden
-                    />}
                     <Action 
                         name="Harvest:"
                         timeRange={`${ranges && ranges.harvestTimeStart} - ${ranges && ranges.harvestTimeEnd}`}
