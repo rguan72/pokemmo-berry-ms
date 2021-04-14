@@ -18,10 +18,6 @@ export default function BerryHarvest({ uid, id, title, number, plant_date, water
         const data = new Data(uid)
         data.updateBushel(id, { waterone_date: date })
     }
-    function setSelectedDateWaterTwo(date) {
-        const data = new Data(uid)
-        data.updateBushel(id, { watertwo_date: date })
-    }
     function setSelectedDateHarvest(date) {
         const data = new Data(uid)
         data.updateBushel(id, { harvest_date: date })

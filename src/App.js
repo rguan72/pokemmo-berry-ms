@@ -39,6 +39,8 @@ function App() {
         </Switch>
       </Router>
     )
+  } else if (user === null) {
+    return "Loading..."
   } else { 
     return (
       <Router>

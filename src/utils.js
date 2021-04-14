@@ -82,7 +82,7 @@ export class BerryMath {
         }
         const locale = "en-US"
         const options = {month: 'numeric', day: 'numeric', hour: "2-digit", minute: "2-digit"}
-        let waterOneTimeStart, waterOneTimeEnd, waterTwoTimeStart, waterTwoTimeEnd, harvestTimeStart, harvestTimeEnd
+        let waterOneTimeStart, waterOneTimeEnd, harvestTimeStart, harvestTimeEnd
         switch (this.type) {
             case 16:
                 waterOneTimeStart = this.t.addHours(plantDate, 4).toLocaleString(locale, options)
